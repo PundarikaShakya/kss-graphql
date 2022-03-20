@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Restaurant {
+  id: Int!
+  name: String!
+  description: String!
+  location: String!
+}
+
+type Menu {
+  name: String!
+  price: Float!
+  description: String!
+}
+
+type Query {
+  menus: [Menu!]!
+  menu(id: Int!): Menu!
+}
+
+type Mutation {
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  createMenu(createMenuInput: CreateMenuInput!): Menu!
+  updateMenu(updateMenuInput: UpdateMenuInput!): Menu!
+  removeMenu(id: Int!): Menu!
+}
+
+input CreateRestaurantInput {
+  name: String!
+  description: String!
+  location: String!
+}
+
+input CreateMenuInput {
+  name: String!
+  price: Float!
+  description: String!
+}
+
+input UpdateMenuInput {
+  name: String
+  price: Float
+  description: String
+  id: Int!
+}
