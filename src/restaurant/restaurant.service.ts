@@ -20,7 +20,7 @@ export class RestaurantService {
   }
 
   findOne(id: number) {
-    return this._restaurantRepository.findOneBy({ id });
+    return this._restaurantRepository.findOne(id);
   }
 
   update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
