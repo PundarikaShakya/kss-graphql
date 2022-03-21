@@ -20,8 +20,6 @@ export class RestaurantService {
   }
 
   async findAll() {
-    const aa = await this._restaurantRepository.find({ relations: ['menu'] });
-    console.log(aa);
-    return aa;
+    return await this._restaurantRepository.find({ relations: ['menu'] });
   }
 }

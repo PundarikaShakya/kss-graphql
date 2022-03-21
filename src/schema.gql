@@ -52,3 +52,7 @@ input UpdateMenuInput {
   restaurantId: Int
   id: Int!
 }
+
+type Subscription {
+  menuAdded: Menu!
+}
