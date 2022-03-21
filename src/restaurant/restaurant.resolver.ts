@@ -13,4 +13,14 @@ export class RestaurantResolver {
   ) {
     return await this.restaurantService.create(createRestaurantInput);
   }
+
+  @Query(() => Restaurant, { name: 'restaurant' })
+  findOne(@Args('id') id: number) {
+    return this.restaurantService.findOne(id);
+  }
+
+  @Query(() => [Restaurant], { name: 'restaurants' })
+  findAll() {
+    return this.restaurantService.findAll();
+  }
 }

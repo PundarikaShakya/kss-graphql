@@ -14,4 +14,14 @@ export class RestaurantService {
   create(createRestaurantDto: CreateRestaurantInput) {
     return this._restaurantRepository.save(createRestaurantDto);
   }
+
+  findOne(id: number) {
+    return this._restaurantRepository.findOne(id);
+  }
+
+  async findAll() {
+    const aa = await this._restaurantRepository.find({ relations: ['menu'] });
+    console.log(aa);
+    return aa;
+  }
 }

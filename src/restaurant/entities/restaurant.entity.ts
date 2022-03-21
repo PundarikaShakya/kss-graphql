@@ -1,5 +1,13 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Menu } from 'src/menu/entities/menu.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity('restaurant')
 @ObjectType()
@@ -19,4 +27,11 @@ export class Restaurant {
   @Column({ type: 'varchar', length: 50, nullable: true })
   @Field()
   location: string;
+
+  @OneToMany(() => Menu, (menu) => menu.restaurant, {
+    eager: true,
+    cascade: true,
+  })
+  @Field(() => [Menu], { nullable: true })
+  menu?: Menu[];
 }

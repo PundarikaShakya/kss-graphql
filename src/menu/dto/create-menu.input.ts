@@ -10,4 +10,7 @@ export class CreateMenuInput {
 
   @Field()
   description: string;
+
+  @Field(() => Int)
+  restaurantId?: number;
 }

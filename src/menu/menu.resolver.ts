@@ -13,6 +13,13 @@ export class MenuResolver {
     return this.menuService.create(createMenuInput);
   }
 
+  @Mutation(() => Menu)
+  addMenuToRestaurant(
+    @Args('createMenuInput') createMenuInput: CreateMenuInput,
+  ) {
+    return this.menuService.create(createMenuInput);
+  }
+
   @Query(() => [Menu], { name: 'menus' })
   findAll() {
     return this.menuService.findAll();

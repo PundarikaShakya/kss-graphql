@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
+import { RestaurantService } from 'src/restaurant/restaurant.service';
 import { Connection, Repository } from 'typeorm';
 import { CreateMenuInput } from './dto/create-menu.input';
 import { UpdateMenuInput } from './dto/update-menu.input';
@@ -8,15 +10,32 @@ import { Menu } from './entities/menu.entity';
 export class MenuService {
   private _menuRepository: Repository<Menu>;
 
-  constructor(private _connection: Connection) {
+  constructor(
+    private _connection: Connection,
+    private restaurantService: RestaurantService,
+  ) {
     this._menuRepository = this._connection.getRepository(Menu);
   }
-  create(createMenuInput: CreateMenuInput) {
-    return this._menuRepository.save(createMenuInput);
+  async create(createMenuInput: CreateMenuInput) {
+    const { name, price, description, restaurantId } = createMenuInput;
+
+    const menu = new Menu();
+    menu.name = name;
+    menu.description = description;
+    menu.price = price;
+
+    if (restaurantId) {
+      const restaurant = await this.restaurantService.findOne(restaurantId);
+      menu.restaurant = restaurant;
+    }
+    return this._menuRepository.save(menu);
   }
 
-  findAll() {
-    return this._menuRepository.find();
+  async findAll() {
+    const menus = await this._menuRepository.find({
+      relations: ['restaurant'],
+    });
+    return menus;
   }
 
   findOne(id: number) {

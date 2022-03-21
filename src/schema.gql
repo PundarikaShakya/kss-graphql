@@ -2,20 +2,24 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Menu {
+  name: String!
+  price: Float!
+  description: String!
+  restaurant: Restaurant
+}
+
 type Restaurant {
   id: Int!
   name: String!
   description: String!
   location: String!
-}
-
-type Menu {
-  name: String!
-  price: Float!
-  description: String!
+  menu: [Menu!]
 }
 
 type Query {
+  restaurant(id: Float!): Restaurant!
+  restaurants: [Restaurant!]!
   menus: [Menu!]!
   menu(id: Int!): Menu!
 }
@@ -23,6 +27,7 @@ type Query {
 type Mutation {
   createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
   createMenu(createMenuInput: CreateMenuInput!): Menu!
+  addMenuToRestaurant(createMenuInput: CreateMenuInput!): Menu!
   updateMenu(updateMenuInput: UpdateMenuInput!): Menu!
   removeMenu(id: Int!): Menu!
 }
@@ -37,11 +42,13 @@ input CreateMenuInput {
   name: String!
   price: Float!
   description: String!
+  restaurantId: Int!
 }
 
 input UpdateMenuInput {
   name: String
   price: Float
   description: String
+  restaurantId: Int
   id: Int!
 }
